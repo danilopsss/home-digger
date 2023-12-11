@@ -61,5 +61,10 @@ class ProvidersInformationABC(ABC):
 
     @property
     @abstractmethod
+    def get_link(self) -> Provider:
+        ...
+
+    @property
+    @abstractmethod
     def get_soup(self) -> str:
         ...

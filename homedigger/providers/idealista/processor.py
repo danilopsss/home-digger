@@ -19,6 +19,7 @@ class Idealista(ProvidersInformationABC):
             "price": self._rules("select", "span.info-data-price"),
             "location": self._rules("select", "h2.ide-box-detail-h2 + ul"),
             "contact": self._rules("select", "a.about-advertiser-name"),
+            "link": self._rules("select_one", "link[rel=canonical]"),
             "general_info": self._rules(
                 "select", "div.details-property_features > ul:last-child"
             ),
@@ -98,6 +99,12 @@ class Idealista(ProvidersInformationABC):
         )
 
     @property
+    def get_link(self):
+        link_rules = self._scrapper_rules["link"]
+        link = getattr(self._soup, link_rules.search_method)(link_rules.query)
+        return Sanitization.clean_up_text(link.get("href"))
+
+    @property
     def get_contacts(self):
         contact_rules = self._scrapper_rules["contact"]
         contact = getattr(self._soup, contact_rules.search_method)(contact_rules.query)
@@ -126,9 +133,12 @@ class Idealista(ProvidersInformationABC):
             floor=self.get_floor,
             address=self.get_address_dict,
             contact=self.get_contacts,
+            link=self.get_link,
         )
 
     def extract_by_pattern(self, *, pattern: str, text: str) -> str:
         if found := re.findall(pattern, text, flags=re.IGNORECASE):
             return found[0]
         return ""
+
+# <link rel="canonical" href="https://www.idealista.com/inmueble/101542232/"/>

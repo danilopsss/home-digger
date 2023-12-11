@@ -10,6 +10,7 @@ class IdealistaSchema(BaseModel):
     bedrooms: int
     has_lift: bool
     floor: int
+    link: str
 
     address: AddressSchema
     contact: ContactsSchema

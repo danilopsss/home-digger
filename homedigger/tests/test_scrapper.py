@@ -2,8 +2,7 @@ import pytest
 
 from pathlib import Path
 from unittest.mock import patch
-from homedigger.utils.scrapper import Scrapper
-from bs4 import BeautifulSoup
+from homedigger.core.scrapper import Scrapper
 
 
 @pytest.fixture
@@ -15,7 +14,7 @@ def mock_page():
 
 @pytest.fixture(autouse=True)
 def mock_providers_register():
-    register = "homedigger.utils.scrapper.PROVIDERS_REGISTER"
+    register = "homedigger.core.scrapper.PROVIDERS_REGISTER"
     new_value = ["SomeProvider1", "SomeProvider2"]
     with patch(register, new=new_value):
         yield

@@ -1,10 +1,13 @@
 FROM python:3.12-slim
 
-COPY ./{*.toml, *.lock} ./scripts/ ./
+COPY ./pyproject.toml \
+     ./poetry.lock \
+     ./scripts \
+     ./alembic.ini \
+     alembic/ \
+     ./
 
-RUN bash /python-image.sh
-
-COPY ./homedigger /app/homedigger
+COPY ./homedigger /app
 COPY ./html /tmp/html
 
-WORKDIR /app
+RUN  ./python-image.sh
