@@ -10,5 +10,16 @@ pip install poetry
 
 # INSTALL POETRY AND REMOVE TOML
 poetry config virtualenvs.create false
-poetry install --no-dev
-# rm -rf *.toml *.lock
+
+# VERIFY ENVIRONMENT
+case $ENV in
+  "TEST")
+    poetry install
+    ;;
+  *)
+    poetry install --no-dev
+    ;;
+esac
+
+# REMOVE TOML AND LOCK FILES
+rm -rf *.toml *.lock

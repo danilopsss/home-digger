@@ -1,5 +1,6 @@
+from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import Column, String, ForeignKey
-from sqlalchemy.orm import relationship, mapped_column
 from .base import BaseModel
 
 
@@ -8,6 +9,6 @@ class Addresses(BaseModel):
 
     street = Column(String, nullable=False, default=None)   
     city = Column(String, nullable=False, default=None)
-    
-    advertisement_id = mapped_column(ForeignKey('advertisements.id'))
-    advertisements = relationship('Advertisements', back_populates='address')
+
+    advertisement_id = Column(UUID, ForeignKey("advertisements.id"))
+    advertisement = relationship("Advertisements", lazy=True, uselist=False, back_populates="address")

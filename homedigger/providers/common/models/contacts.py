@@ -1,5 +1,6 @@
+from sqlalchemy.orm import  relationship
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import Column, String, ForeignKey
-from sqlalchemy.orm import relationship, mapped_column
 from .base import BaseModel
 
 
@@ -11,5 +12,5 @@ class Contacts(BaseModel):
     phone = Column(String, nullable=True, default=None)
     email = Column(String, nullable=True, default=None)
 
-    advertisement_id = mapped_column(ForeignKey('advertisements.id'))
-    advertisements = relationship('Advertisements', back_populates='contacts')
+    advertisement_id = Column(UUID, ForeignKey("advertisements.id"), nullable=False)
+    advertisement = relationship("Advertisements", lazy=True, uselist=False, back_populates="contact")

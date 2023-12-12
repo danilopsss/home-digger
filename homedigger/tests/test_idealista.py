@@ -2,9 +2,9 @@ import pytest
 from pathlib import Path
 from bs4 import BeautifulSoup
 from homedigger.providers.idealista.processor import Idealista
+from homedigger.providers.idealista.schemas import IdealistaSchema
 from homedigger.providers.common.schemas.addresses import AddressSchema
 from homedigger.providers.common.schemas.contacts import ContactsSchema
-from homedigger.providers.idealista.schemas import IdealistaSchema
 
 
 @pytest.fixture
@@ -75,9 +75,7 @@ def test_idealista_get_data(mocked_beautiful_soup_page):
         ),
         contact=ContactsSchema(
             name='Metrópoli Servicios',
-            city='A Coruña',
-            phone=None,
-            email=None
+            city='A Coruña'
         )
     )
     assert idealista.get_data == expected

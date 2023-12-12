@@ -1,16 +1,17 @@
 import os
 import sqlalchemy
+
+from contextlib import contextmanager
 from sqlalchemy.orm import sessionmaker
 
 
 def __get_url():
     return "postgresql://%s:%s@%s/%s" % (
-        os.environ.get("POSTGRES_USER"),
-        os.environ.get("POSTGRES_PASSWORD"),
-        os.environ.get("POSTGRES_HOST"),
-        os.environ.get("POSTGRES_DB"),
+        os.environ.get("POSTGRES_USER", "POSTGRES_USER"),
+        os.environ.get("POSTGRES_PASSWORD", "POSTGRES_PASSWORD"),
+        os.environ.get("POSTGRES_HOST", "localhost"),
+        os.environ.get("POSTGRES_DB", "POSTGRES_DB"),
     )
-
 
 def __db_session():
     db_url = __get_url()
@@ -18,9 +19,7 @@ def __db_session():
     return sessionmaker(bind=engine, autoflush=True)()
 
 
+@contextmanager
 def get_session():
-    try:
-        db = __db_session()
-        yield db
-    finally:
-        db.close()
+    with __db_session() as session:
+        yield session

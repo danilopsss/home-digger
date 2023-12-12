@@ -1,9 +1,9 @@
 from bs4 import BeautifulSoup
+from homedigger.core.utils.logging import log_this
 from homedigger.core.abstract.scrapper import ScrapperABC
 from homedigger.providers.register import PROVIDERS_REGISTER
-from homedigger.providers.common.types.providers import Provider
 from homedigger.providers.idealista.processor import Idealista
-from homedigger.utils.logging import log_this
+from homedigger.providers.common.types.providers import Provider
 
 
 class Scrapper(ScrapperABC):

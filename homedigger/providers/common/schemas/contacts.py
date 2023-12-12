@@ -1,9 +1,12 @@
-from pydantic import BaseModel, Field
-from typing import Optional
+from pydantic import Field
+from .base import Base
+from homedigger.providers.common.models.contacts import Contacts
 
 
-class ContactsSchema(BaseModel):
+class ContactsSchema(Base):
+    __orm_model__ = Contacts
+
     name: str
     city: str
-    phone: Optional[str] = Field(default=None)
-    email: Optional[str] = Field(default=None)
+    phone: str = Field(default="")
+    email: str = Field(default="")

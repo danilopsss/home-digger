@@ -1,7 +1,7 @@
 import re
 import pytest
 
-from homedigger.providers.common.cleanup import Sanitization
+from homedigger.core.utils.cleanup import Sanitization
 
 
 @pytest.fixture

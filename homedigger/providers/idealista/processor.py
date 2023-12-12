@@ -1,11 +1,12 @@
 import re
+
 from bs4 import BeautifulSoup
 from collections import namedtuple
+from homedigger.core.utils.cleanup import Sanitization
+from homedigger.providers.idealista.schemas import IdealistaSchema
 from homedigger.core.abstract.providers import ProvidersInformationABC
-from homedigger.providers.common.cleanup import Sanitization
 from homedigger.providers.common.schemas.addresses import AddressSchema
 from homedigger.providers.common.schemas.contacts import ContactsSchema
-from homedigger.providers.idealista.schemas import IdealistaSchema
 
 
 class Idealista(ProvidersInformationABC):
@@ -140,5 +141,3 @@ class Idealista(ProvidersInformationABC):
         if found := re.findall(pattern, text, flags=re.IGNORECASE):
             return found[0]
         return ""
-
-# <link rel="canonical" href="https://www.idealista.com/inmueble/101542232/"/>
