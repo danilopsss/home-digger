@@ -1,0 +1,5 @@
+[flask]
+DEBUG = true
+CSRF_ENABLED = true
+UPLOAD_FOLDER = '/temp/html'
+SECRET_KEY = 'this-really-needs-to-be-changed'
