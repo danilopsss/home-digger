@@ -36,5 +36,13 @@ services:
     ports:
       - 8080:15672
 
+  collector:
+    build:
+      context: .
+      dockerfile: ./collector/collector.Dockerfile
+    command: bash /start-up.sh
+    ports:
+      - 8001:8001
+
 volumes:
   postgres_data:
