@@ -9,6 +9,10 @@ function wait_for() {
 
 case $APP in
   "COLLECTOR")
-      gunicorn -w 4 collector:app -b 0.0.0.0:8001
+      wait_for sentinel
+      gunicorn -w 1 collector:app -b 0.0.0.0:8001
+    ;;
+  "SENTINEL")
+      bash /sentinel.sh
     ;;
 esac

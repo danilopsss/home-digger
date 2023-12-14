@@ -31,4 +31,7 @@ case $APP in
       install_system_packages
       install_python_packages
     ;;
+  "SENTINEL")
+      apt-get install fswatch -y
+    ;;
 esac
