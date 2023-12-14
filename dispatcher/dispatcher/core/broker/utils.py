@@ -45,13 +45,14 @@ def dispatch_message(function) -> dict:
         message = function(*args, **kwargs)
         _broker = Broker()
         conn = _broker.get_broker_conn(message.get("broker"))
+
         with (channel := conn.channel()):
             channel.basic_publish(
-                exchange=message.get("exchange"),
-                routing_key=message.get("routing_key"),
-                body=message.get("body"),
+                exchange=message.get("exchange", "file.created"),
+                routing_key=message.get("routing_key", "file.created"),
+                body=message.get("file", ""),
                 properties=pika.BasicProperties(
-                    message_id=uuid4(),
+                    message_id=str(uuid4()),
                 )
             )
         message.pop("broker")

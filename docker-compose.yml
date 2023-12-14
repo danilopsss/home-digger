@@ -52,6 +52,27 @@ services:
     ports:
       - 8001:8001
     depends_on:
+      - broker
+      - sentinel
+      - dispatcher
+
+  dispatcher:
+    tty: true
+    command: bash /start-up.sh
+    container_name: dispatcher
+    build:
+      context: .
+      dockerfile: ./dispatcher/dispatcher.Dockerfile
+      target: dispatcher
+    environment:
+      - ENV=development
+    volumes:
+      - ./dispatcher/dispatcher:/dispatcher
+      - file_repository:/tmp/html
+    ports:
+      - 8002:8002
+    depends_on:
+      - broker
       - sentinel
   
   sentinel:
@@ -64,6 +85,8 @@ services:
     volumes:
       - file_repository:/tmp/html
       - ./scripts/:/app
+    depends_on:
+      - broker
 
 volumes:
   postgres_data:

@@ -10,7 +10,8 @@ upload_bp = Blueprint(name="upload_endpoint", import_name=__name__)
 @upload_bp.route("/upload-page", methods=["POST"])
 @authclass.login_required
 def upload_page():
-    if file := request.files.get("file"):
+    files = request.files.listvalues()
+    for file in list(*files):
         filepath = os.path.join(
             current_app.config.get("UPLOAD_FOLDER", "/tmp"), file.filename
         )

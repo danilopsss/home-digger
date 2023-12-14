@@ -27,11 +27,17 @@ function install_python_packages() {
 }
 
 case $APP in
+  "DISPATCHER")
+      install_system_packages
+      install_python_packages
+    ;;
   "COLLECTOR")
       install_system_packages
       install_python_packages
     ;;
   "SENTINEL")
+      install_system_packages
+      apt-get install curl -y
       apt-get install fswatch -y
     ;;
 esac

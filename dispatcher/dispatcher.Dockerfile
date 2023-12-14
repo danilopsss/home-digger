@@ -4,7 +4,7 @@ COPY ./scripts .
 
 FROM builer AS dispatcher
 
-ENV APP=dispatcher
+ENV APP=DISPATCHER
 
 COPY ./dispatcher/pyproject.toml \
      ./dispatcher/poetry.lock \

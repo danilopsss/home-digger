@@ -12,6 +12,10 @@ case $APP in
       wait_for sentinel
       gunicorn -w 1 collector:app -b 0.0.0.0:8001
     ;;
+  "DISPATCHER")
+      wait_for broker
+      gunicorn -w 1 dispatcher:app -b 0.0.0.0:8002
+    ;;
   "SENTINEL")
       bash /sentinel.sh
     ;;
