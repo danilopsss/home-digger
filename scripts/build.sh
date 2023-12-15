@@ -18,16 +18,20 @@ function install_python_packages() {
   poetry config virtualenvs.create false
 
   if [ "$ENV" = "DEV" ]; then
-    poetry install
+    poetry install --no-root
   else
-    poetry install --no-dev
+    poetry install --no-dev --no-root
   fi
 
-  rm -rf *.toml *.lock
+  rm -rf *.toml *.lock *.Dockerfile
 }
 
 case $APP in
   "DISPATCHER")
+      install_system_packages
+      install_python_packages
+    ;;
+  "PROCESSOR")
       install_system_packages
       install_python_packages
     ;;

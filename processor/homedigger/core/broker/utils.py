@@ -3,8 +3,7 @@ import pika
 
 from uuid import uuid4
 from typing import Union
-from flask import jsonify
-from dispatcher.core.abstract.broker import BrokerAbstract
+from homedigger.core.abstract.broker import BrokerAbstract
 
 
 class Broker(BrokerAbstract):
@@ -56,6 +55,5 @@ def dispatch_message(function) -> dict:
                 )
             )
         message.pop("broker")
-        return jsonify(message), 202
+        return message
     return dispatch
-

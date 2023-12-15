@@ -8,6 +8,7 @@ ENV APP=DISPATCHER
 
 COPY ./dispatcher/pyproject.toml \
      ./dispatcher/poetry.lock \
+     ./rabbitmq.json \
      ./
 
 COPY ./dispatcher ./
